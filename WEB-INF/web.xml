@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app> 
+ 
+ 
+  <servlet>
+    <servlet-name>GetKnowledge</servlet-name>
+    <servlet-class>honey.GetKnowledge</servlet-class>
+  </servlet>
+
+  <!-- Define the Manager Servlet Mapping -->
+  <servlet-mapping>
+    <servlet-name>GetKnowledge</servlet-name>
+      <url-pattern>/GetKnowledge</url-pattern>
+  </servlet-mapping>
+
+</web-app>

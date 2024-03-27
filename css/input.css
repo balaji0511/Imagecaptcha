@@ -1,0 +1,11 @@
+input {
+width: 125px;
+font-family: Verdana;
+font-size: 8pt;
+}
+
+body {
+  background-image: url('images/images23.jpg');
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}

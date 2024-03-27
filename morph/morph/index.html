@@ -1,0 +1,79 @@
+<title>The Image Morphing Applet</title>
+<body bgcolor="#000000" text="#0000ff" link="#0000ff" vlink="0000ff" alink="#0000ff">
+<center><h2>The Image Morphing Applet</h2></center>
+<br>
+<center><table border=4><tr>
+<td><applet code=morph.Morph.class width=150 height=180>
+<param name=imagesrc value=keith.gif>
+<param name=imagedst value=magda.gif>
+<param name=framecnt value=10>
+<param name=interval value=100>
+<param name=cpt1     value=58:71:77:75>
+<param name=cpt2     value=93:68:107:79>
+<param name=cpt3     value=80:87:93:96>
+</applet></td>
+</tr></table></center>
+<br>
+<hr>
+<br>
+<B>This is an implementation of a peculiar triangular morphing algorithm. 
+Starting with a source image, a destination image, and three control points for each image,
+I basically divide each image into a mesh of triangles, using the four corners and three control
+points as vertices. These triangles are then split into what I call simple triangles,
+which are triangles with one horizontal edge. This results in 14 triangles for each image.
+I then interpolate between each source/destination triangle pair to generate each frame of the morph;
+I do a triangular scanline conversion into the intermediate frame triangle,
+using the source and destination triangles as color sources
+and the frame number (as a fraction of the total number of frames) as an alpha transparency
+value for the sources. It's not very fast, and not very robust, but with carefully
+selected images and control points it seems to work reasonably. Notice that the degree of morphing
+(the degree of pixel tranformation and motion versus pure transparent fade and replacement) is
+highest near the control points (which in this case are the eyes and nose of the people in the images),
+dropping to zero at the edges of the image.
+<br>
+<br>
+<center>I would appreciate your comments.</center>
+</B>
+<hr>
+<center><B><H3>Using the Image Morphing Applet</H3></B></center>
+<br>
+<center><B>Parameters</B></center>
+<center><table>
+<tr><th align=left>imagesrc</th><td>The source image</td></tr>
+<tr><th align=left>imagedst</th><td>The destination image</td></tr>
+<tr><th align=left>framecnt</th><td>The number of intermediate frames to generate</td></tr>
+<tr><th align=left>interval</th><td>The animation frame rate interval in milliseconds</td></tr>
+<tr><th align=left>cpt1</th><td>The first control point pair, in the following format: <B>srcX:srcY:dstX:dstY</B></td></tr>
+<tr><th align=left>cpt2</th><td>The second control point pair, in the following format: <B>srcX:srcY:dstX:dstY</B></td></tr>
+<tr><th align=left>cpt3</th><td>The third control point pair, in the following format: <B>srcX:srcY:dstX:dstY</B></td></tr>
+<tr><th align=left>audio</th><td>An optional audio file to play (.au format)</td></tr>
+</table></center>
+<br>
+<center><B>Suggestions</B></center>
+<ul>
+<li>Order your control point pairs such that <I>(0,0) <= cpt1 <= cpt2 <= cpt3</I>, insomuch as this is possible. The origin as far as the applet is concerned is the upper left corner of the image.</li>
+<li>Whenever possible, use source and destination images that are the same size. The applet can handle differently dimensioned images, but the results are rarely what you expect.</li>
+</ul>
+<hr>
+<br>
+<center><B>Source Code</B></center>
+<br>
+<center><table cellspacing=10>
+<tr>
+  <th align=left><a href=Morph.java>Morph.java</a></th>
+  <td>This class handles the generation of the intermediate frames of the morph,
+      and the runtime animation sequencing</td>
+</tr>
+<tr>
+  <th align=left><a href=ImageLoader.java>ImageLoader.java</a></th>
+  <td>This class encapsulates the process of loading an image and updating its progress to the screen</td>
+</tr>
+<tr>
+  <th align=left><a href=ImageLoaderClient.java>ImageLoaderClient.java</a></th>
+  <td>An interface for clients of the ImageLoader class</td>
+</tr>
+</table></center>
+<hr>
+<center>
+<a href=http://www-cs-students.stanford.edu/~tompkins/>David Tompkins</a> - <a href=mailto:tompkins@cs.stanford.edu>tompkins@cs.stanford.edu</a>
+</center>
